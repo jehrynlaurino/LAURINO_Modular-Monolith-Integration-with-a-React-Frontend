@@ -1,0 +1,150 @@
+:root {
+  color: #172033;
+  background: #f4f7fb;
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-synthesis: none;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  min-width: 320px;
+  min-height: 100vh;
+  margin: 0;
+}
+
+button,
+input,
+select {
+  font: inherit;
+}
+
+.page-shell {
+  display: grid;
+  min-height: 100vh;
+  padding: 2rem;
+  place-items: center;
+  background:
+    radial-gradient(circle at top right, #dceaff, transparent 35rem),
+    #f4f7fb;
+}
+
+.order-card {
+  width: min(100%, 33rem);
+  padding: clamp(1.5rem, 5vw, 3rem);
+  border: 1px solid #d9e1ee;
+  border-radius: 1.25rem;
+  background: #fff;
+  box-shadow: 0 1.5rem 4rem rgb(49 73 112 / 12%);
+}
+
+.eyebrow {
+  margin: 0 0 0.5rem;
+  color: #3d5a98;
+  font-size: 0.78rem;
+  font-weight: 750;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+h1 {
+  margin: 0;
+  font-size: clamp(2rem, 7vw, 2.75rem);
+  line-height: 1.1;
+}
+
+.intro {
+  margin: 1rem 0 2rem;
+  color: #526176;
+  line-height: 1.55;
+}
+
+form {
+  display: grid;
+  gap: 0.55rem;
+}
+
+label {
+  margin-top: 0.7rem;
+  font-size: 0.92rem;
+  font-weight: 700;
+}
+
+select,
+input {
+  width: 100%;
+  min-height: 2.8rem;
+  padding: 0.65rem 0.75rem;
+  border: 1px solid #aebbd0;
+  border-radius: 0.55rem;
+  background: #fff;
+  color: #172033;
+}
+
+select:focus,
+input:focus {
+  outline: 3px solid #bfd4ff;
+  outline-offset: 1px;
+}
+
+.stock-note {
+  margin: 0.2rem 0 0.5rem;
+  color: #526176;
+  font-size: 0.9rem;
+}
+
+button {
+  min-height: 2.9rem;
+  margin-top: 0.6rem;
+  border: 0;
+  border-radius: 0.55rem;
+  background: #1d4ed8;
+  color: #fff;
+  cursor: pointer;
+  font-weight: 750;
+}
+
+button:hover:not(:disabled) {
+  background: #173fae;
+}
+
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
+.message,
+.result {
+  margin: 1.5rem 0 0;
+  padding: 1rem;
+  border-radius: 0.7rem;
+}
+
+.error {
+  border: 1px solid #f0b7b7;
+  background: #fff1f1;
+  color: #9f1c1c;
+}
+
+.result h2 {
+  margin: 0;
+  font-size: 1.1rem;
+}
+
+.result p {
+  margin: 0.55rem 0 0;
+}
+
+.confirmed {
+  border: 1px solid #a9d9b3;
+  background: #effcf1;
+  color: #176b2c;
+}
+
+.rejected {
+  border: 1px solid #f0c38f;
+  background: #fff8eb;
+  color: #8a4c0d;
+}
