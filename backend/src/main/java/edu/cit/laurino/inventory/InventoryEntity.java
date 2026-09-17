@@ -47,6 +47,13 @@ class InventoryEntity {
         stock -= quantity;
     }
 
+    void increaseStock(int quantity) {
+        if (quantity <= 0) {
+            throw new IllegalArgumentException("Cannot restock a non-positive quantity.");
+        }
+        stock += quantity;
+    }
+
     InventoryItem toItem() {
         return new InventoryItem(productId, name, stock);
     }

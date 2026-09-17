@@ -13,6 +13,12 @@ public interface InventoryService {
     ReservationResult reserve(String productId, int quantity);
 
     /**
+     * Returns previously reserved stock, e.g. when an order is cancelled.
+     * The implementation stays package-private, same rule as reserve().
+     */
+    void restock(String productId, int quantity);
+
+    /**
      * Supports the client product picker without exposing the repository.
      */
     List<InventoryItem> listItems();

@@ -2,6 +2,8 @@ package edu.cit.laurino.inventory;
 
 import java.util.List;
 import java.util.Optional;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -12,9 +14,16 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 class InventoryServiceImpl implements InventoryService {
     private final InventoryRepository inventoryRepository;
+    private final ApplicationEventPublisher eventPublisher;
+    private final int lowStockThreshold;
 
-    InventoryServiceImpl(InventoryRepository inventoryRepository) {
+    InventoryServiceImpl(
+            InventoryRepository inventoryRepository,
+            ApplicationEventPublisher eventPublisher,
+            @Value("${app.inventory.low-stock-threshold:5}") int lowStockThreshold) {
         this.inventoryRepository = inventoryRepository;
+        this.eventPublisher = eventPublisher;
+        this.lowStockThreshold = lowStockThreshold;
     }
 
     @Override
@@ -44,7 +53,25 @@ class InventoryServiceImpl implements InventoryService {
 
         inventory.decreaseStock(quantity);
         InventoryItem remainingInventory = inventory.toItem();
+
+        if (remainingInventory.stock() < lowStockThreshold) {
+            eventPublisher.publishEvent(new LowStockEvent(
+                    remainingInventory.productId(),
+                    remainingInventory.name(),
+                    remainingInventory.stock(),
+                    lowStockThreshold));
+        }
+
         return new ReservationResult(true, "Inventory reserved.", remainingInventory);
+    }
+
+    @Override
+    @Transactional
+    public void restock(String productId, int quantity) {
+        if (quantity <= 0) {
+            return;
+        }
+        inventoryRepository.findById(productId).ifPresent(inventory -> inventory.increaseStock(quantity));
     }
 
     @Override

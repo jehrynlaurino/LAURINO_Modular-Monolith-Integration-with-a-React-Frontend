@@ -25,14 +25,27 @@ select {
   display: grid;
   min-height: 100vh;
   padding: 2rem;
-  place-items: center;
+  place-items: start center;
   background:
     radial-gradient(circle at top right, #dceaff, transparent 35rem),
     #f4f7fb;
 }
 
+.layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 1.5rem;
+  width: min(100%, 68rem);
+}
+
+@media (min-width: 64rem) {
+  .layout {
+    grid-template-columns: minmax(0, 33rem) minmax(0, 1fr);
+    align-items: start;
+  }
+}
+
 .order-card {
-  width: min(100%, 33rem);
   padding: clamp(1.5rem, 5vw, 3rem);
   border: 1px solid #d9e1ee;
   border-radius: 1.25rem;
@@ -56,12 +69,12 @@ h1 {
 }
 
 .intro {
-  margin: 1rem 0 2rem;
+  margin: 1rem 0 1.5rem;
   color: #526176;
   line-height: 1.55;
 }
 
-form {
+.cart-builder {
   display: grid;
   gap: 0.55rem;
 }
@@ -89,12 +102,6 @@ input:focus {
   outline-offset: 1px;
 }
 
-.stock-note {
-  margin: 0.2rem 0 0.5rem;
-  color: #526176;
-  font-size: 0.9rem;
-}
-
 button {
   min-height: 2.9rem;
   margin-top: 0.6rem;
@@ -104,6 +111,7 @@ button {
   color: #fff;
   cursor: pointer;
   font-weight: 750;
+  padding: 0 1rem;
 }
 
 button:hover:not(:disabled) {
@@ -113,6 +121,48 @@ button:hover:not(:disabled) {
 button:disabled {
   cursor: not-allowed;
   opacity: 0.55;
+}
+
+form {
+  margin-top: 0.5rem;
+}
+
+.cart-list {
+  list-style: none;
+  margin: 1.1rem 0 0;
+  padding: 0;
+  display: grid;
+  gap: 0.5rem;
+}
+
+.cart-line {
+  display: grid;
+  grid-template-columns: 1fr 4.5rem auto;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.55rem 0.7rem;
+  border: 1px solid #e1e7f2;
+  border-radius: 0.55rem;
+  background: #f8fafd;
+}
+
+.cart-line input {
+  min-height: 2.2rem;
+  padding: 0.3rem 0.5rem;
+}
+
+.link-button {
+  min-height: auto;
+  margin-top: 0;
+  padding: 0.35rem 0.6rem;
+  background: transparent;
+  color: #b91c1c;
+  font-weight: 700;
+  font-size: 0.85rem;
+}
+
+.link-button:hover:not(:disabled) {
+  background: #fdecec;
 }
 
 .message,
@@ -137,6 +187,11 @@ button:disabled {
   margin: 0.55rem 0 0;
 }
 
+.outcome-list {
+  margin: 0.6rem 0 0;
+  padding-left: 1.1rem;
+}
+
 .confirmed {
   border: 1px solid #a9d9b3;
   background: #effcf1;
@@ -147,4 +202,122 @@ button:disabled {
   border: 1px solid #f0c38f;
   background: #fff8eb;
   color: #8a4c0d;
+}
+
+.side-panel {
+  display: grid;
+  gap: 1.5rem;
+  align-content: start;
+}
+
+.panel-block {
+  padding: 1.4rem 1.6rem;
+  border: 1px solid #d9e1ee;
+  border-radius: 1.1rem;
+  background: #fff;
+  box-shadow: 0 1rem 3rem rgb(49 73 112 / 9%);
+}
+
+.panel-block h2 {
+  margin: 0 0 0.8rem;
+  font-size: 1.05rem;
+}
+
+.empty-note {
+  margin: 0;
+  color: #7c889c;
+  font-size: 0.9rem;
+}
+
+.inventory-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.92rem;
+}
+
+.inventory-table th,
+.inventory-table td {
+  text-align: left;
+  padding: 0.5rem 0.4rem;
+  border-bottom: 1px solid #edf1f7;
+}
+
+.inventory-table tr.low-stock td {
+  background: #fff1ea;
+  color: #9a3b12;
+  font-weight: 700;
+}
+
+.order-history {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.7rem;
+  max-height: 16rem;
+  overflow-y: auto;
+}
+
+.order-row {
+  padding: 0.65rem 0.8rem;
+  border-radius: 0.6rem;
+  border: 1px solid #e1e7f2;
+  background: #f8fafd;
+  font-size: 0.9rem;
+}
+
+.order-row.status-confirmed {
+  border-left: 4px solid #22a35a;
+}
+
+.order-row.status-rejected {
+  border-left: 4px solid #dc8a1f;
+}
+
+.order-row.status-cancelled {
+  border-left: 4px solid #9aa5b8;
+  opacity: 0.75;
+}
+
+.order-row-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-weight: 700;
+}
+
+.order-items {
+  margin: 0.4rem 0 0;
+  padding-left: 1.1rem;
+  color: #526176;
+}
+
+.order-reason {
+  margin: 0.35rem 0 0;
+  color: #526176;
+  font-size: 0.85rem;
+}
+
+.notification-feed {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.45rem;
+  max-height: 14rem;
+  overflow-y: auto;
+  font-size: 0.88rem;
+}
+
+.notification-feed li {
+  padding: 0.5rem 0.65rem;
+  border-radius: 0.5rem;
+  background: #f2f5fa;
+  color: #37455a;
+}
+
+.notification-feed li.reorder {
+  background: #fdeaea;
+  color: #9f1c1c;
+  font-weight: 600;
 }

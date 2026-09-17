@@ -1,18 +1,35 @@
 -- Run this in Supabase: SQL Editor -> New query -> Run.
--- It is intentionally safe to re-run while you are developing.
+-- Recreates the full schema from scratch, including seed data. Do not
+-- hand-edit tables in Supabase - always change this script and re-run it.
 
-create table if not exists inventory (
+drop table if exists notifications;
+drop table if exists order_items;
+drop table if exists orders;
+drop table if exists inventory;
+
+create table inventory (
     product_id varchar(50) primary key,
     name varchar(150) not null,
     stock integer not null check (stock >= 0)
 );
 
-create table if not exists orders (
+create table orders (
     order_id bigserial primary key,
-    product_id varchar(50) not null,
-    quantity integer not null check (quantity > 0),
-    status varchar(20) not null check (status in ('CONFIRMED', 'REJECTED')),
+    status varchar(20) not null check (status in ('CONFIRMED', 'REJECTED', 'CANCELLED')),
     reason varchar(255),
+    created_at timestamptz not null default now()
+);
+
+create table order_items (
+    order_item_id bigserial primary key,
+    order_id bigint not null references orders (order_id) on delete cascade,
+    product_id varchar(50) not null,
+    quantity integer not null check (quantity > 0)
+);
+
+create table notifications (
+    notification_id bigserial primary key,
+    message varchar(255) not null,
     created_at timestamptz not null default now()
 );
 

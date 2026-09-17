@@ -1,16 +1,11 @@
 package edu.cit.laurino.shop;
 
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotEmpty;
+import java.util.List;
 
 public record OrderRequest(
-        @NotBlank(message = "productId is required")
-        @Size(max = 50, message = "productId must contain at most 50 characters")
-        String productId,
-
-        @NotNull(message = "quantity is required")
-        @Min(value = 1, message = "quantity must be at least 1")
-        Integer quantity) {
+        @NotEmpty(message = "items must contain at least one line item")
+        @Valid
+        List<OrderItemRequest> items) {
 }
