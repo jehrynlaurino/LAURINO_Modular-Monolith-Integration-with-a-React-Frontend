@@ -26,3 +26,24 @@ server:
 app:
   cors:
     allowed-origin: ${CORS_ALLOWED_ORIGIN:http://localhost:5173}
+  inventory:
+    low-stock-threshold: 5
+  supplier:
+    base-url: https://legacysupply.onrender.com/api/v1
+    client-id: ${LS_CLIENT_ID}
+    api-key: ${LS_API_KEY}
+    pending-retry-interval-ms: 60000
+    tracking-poll-interval-ms: 45000
+    # Replace these SKUs/pack sizes with the REAL values from your own
+    # GET /catalog probe (Part B) before running this. Add more entries here
+    # for every Inventory product you want auto-reordered.
+    product-map:
+      P100:
+        sku: YEU-4293
+        pack-size: 10
+      P200:
+        sku: YEU-2184
+        pack-size: 20
+      P300:
+        sku: YEU-7363
+        pack-size: 24

@@ -3,6 +3,7 @@
 -- hand-edit tables in Supabase - always change this script and re-run it.
 
 drop table if exists notifications;
+drop table if exists supplier_orders;
 drop table if exists order_items;
 drop table if exists orders;
 drop table if exists inventory;
@@ -31,6 +32,19 @@ create table notifications (
     notification_id bigserial primary key,
     message varchar(255) not null,
     created_at timestamptz not null default now()
+);
+
+create table supplier_orders (
+    id bigserial primary key,
+    product_id varchar(50) not null,
+    buyer_ref varchar(40) not null unique,
+    request_id varchar(80) not null,
+    po_number varchar(50),
+    cases integer not null check (cases > 0),
+    units integer not null check (units > 0),
+    status varchar(20) not null check (status in ('PENDING', 'SUBMITTED', 'PICKING', 'SHIPPED', 'DELIVERED', 'FAILED')),
+    created_at timestamptz not null default now(),
+    updated_at timestamptz not null default now()
 );
 
 insert into inventory (product_id, name, stock)
